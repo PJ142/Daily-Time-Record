@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\DailyTimeRecordsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupervisorController;
+use App\Http\Controllers\Backend\PropertyTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,26 +32,59 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 //ADMIN
-Route::get('/admin/login', 
-        [AdminController::class, 'AdminLogin'])->name('admin.login');
+Route::get(
+    '/admin/login',
+    [AdminController::class, 'AdminLogin']
+)->name('admin.login');
 
-Route::middleware(['auth','role:admin'])->group(function(){
-    Route::get('/admin/dashboard', 
-        [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
-    Route::get('/admin/logout', 
-        [AdminController::class, 'AdminLogout'])->name('admin.logout');
-    Route::get('/admin/profile', 
-        [AdminController::class, 'AdminProfile'])->name('admin.profile');
-    Route::post('/admin/profile/store', 
-        [AdminController::class, 'AdminProfileStore'])->name('admin.profile.store');
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get(
+        '/admin/dashboard',
+        [AdminController::class, 'AdminDashboard']
+    )->name('admin.dashboard');
+
+    Route::get(
+        '/admin/logout',
+        [AdminController::class, 'AdminLogout']
+    )->name('admin.logout');
+
+    Route::get(
+        '/admin/profile',
+        [AdminController::class, 'AdminProfile']
+    )->name('admin.profile');
+
+    Route::post(
+        '/admin/profile/store',
+        [AdminController::class, 'AdminProfileStore']
+    )->name('admin.profile.store');
+
+    Route::get(
+        '/admin/change/password',
+        [AdminController::class, 'AdminChangePassword']
+    )->name('admin.change.password');
+
+    Route::post(
+        '/admin/update/password',
+        [AdminController::class, 'AdminUpdatePassword']
+    )->name('admin.update.password');
+});
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::controller(DailyTimeRecordsController::class)->group(function () {
+        Route::get(
+            '/DailyTimeRecords', //Route
+            'DailyTimeRecords' //Controller
+        )->name('dtr'); // href
+    });
 }); //admin middleware
 
-
 //SUPERVISOR
-Route::middleware(['auth','role:supervisor'])->group(function(){
-    Route::get('/supervisor/dashboard', 
-        [SupervisorController::class, 'SupervisorDashboard'])->name('supervisor.dashboard');
+Route::middleware(['auth', 'role:supervisor'])->group(function () {
+    Route::get(
+        '/supervisor/dashboard',
+        [SupervisorController::class, 'SupervisorDashboard']
+    )->name('supervisor.dashboard');
 }); //supervisor middleware

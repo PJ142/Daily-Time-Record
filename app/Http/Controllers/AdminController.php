@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    public function AdminDashboard(){
+    public function AdminDashboard()
+    {
+        $id = Auth::user()->id;
+        $profile = User::find($id);
 
-        return view('admin.index');
-    }//end
+        return view('admin.index', compact('profile'));
+    } //end
 
-    public function AdminLogout(Request $request){
+    public function AdminLogout(Request $request)
+    {
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
@@ -21,22 +26,25 @@ class AdminController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/admin/login');
-    }//end
+    } //end
 
-    public function Adminlogin(){
+    public function Adminlogin()
+    {
 
         return view('admin.admin_login');
-    }//end
+    } //end
 
-    public function AdminProfile(){
+    public function AdminProfile()
+    {
 
         $id = Auth::user()->id;
         $profile = User::find($id);
-        
-        return view('admin.admin_profile', compact('profile'));
-    }
 
-    public function AdminProfileStore(Request $request){
+        return view('admin.admin_profile', compact('profile'));
+    } //end
+
+    public function AdminProfileStore(Request $request)
+    {
 
         $id = Auth::user()->id;
         $data = User::find($id);
@@ -45,7 +53,7 @@ class AdminController extends Controller
         $data->email = $request->email;
         $data->address = $request->address;
         $data->username = $request->username;
-        
+
         if ($request->file('photo')) {
             // Delete the old profile image if it exists
             if ($data->photo && file_exists(public_path('upload/admin_images/' . $data->photo))) {
@@ -55,11 +63,11 @@ class AdminController extends Controller
             $file = $request->file('photo');
             $filename = date('YmdHi') . '_' . $file->getClientOriginalName();
             $file->move(public_path('upload/admin_images'), $filename);
-    
+
             // Update database
             $data->photo = $filename;
         }
-    
+
         $data->save();
 
         $notification = array(
@@ -67,5 +75,43 @@ class AdminController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
+    } //end
+
+    public function AdminChangePassword()
+    {
+        $id = Auth::user()->id;
+        $profile = User::find($id);
+
+        return view('admin.admin_change_password', compact('profile'));
+    } //end
+
+    public function AdminUpdatePassword(Request $request)
+    {
+
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed'
+        ]);
+
+        //Match Old Password
+        if (!Hash::check($request->old_password, auth::user()->password)) {
+
+            $notification = array(
+                'message' => 'Old Password Does not Match!!!',
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }
+
+        //Update New Password
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        $notification = array(
+            'message' => 'Password Change Successfully',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
     }
 }

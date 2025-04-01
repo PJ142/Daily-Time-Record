@@ -213,16 +213,14 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="wd-50 rounded-circle"
-                        src="{{ !empty($profile->photo) ? url('upload/admin_images/' . $profile->photo) : url('upload/no_image.jpg') }}"
+                    <img class="wd-40 rounded-circle" src="{{ asset('upload/admin_images/' . $profile->photo) }}"
                         alt="profile">
                 </a>
                 <div class="dropdown-menu p-0" aria-labelledby="profileDropdown">
                     <div class="d-flex flex-column align-items-center border-bottom px-5 py-3">
                         <div class="mb-3">
-                            <img class="wd-90 rounded-circle"
-                                src="{{ !empty($profile->photo) ? url('upload/admin_images/' . $profile->photo) : url('upload/no_image.jpg') }}"
-                                alt="profile">
+                            <img class="wd-100 rounded-circle"
+                                src="{{ asset('upload/admin_images/' . $profile->photo) }}" alt="profile">
                         </div>
                         <div class="text-center">
                             <p class="tx-16 fw-bolder">{{ $profile->name }}</p>
@@ -237,9 +235,9 @@
                             </a>
                         </li>
                         <li class="dropdown-item py-2">
-                            <a href="javascript:;" class="text-body ms-0">
+                            <a href="{{ route('admin.change.password') }}" class="text-body ms-0">
                                 <i class="me-2 icon-md" data-feather="edit"></i>
-                                <span>Edit Profile</span>
+                                <span>Change Password</span>
                             </a>
                         </li>
                         <li class="dropdown-item py-2">
