@@ -2,10 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Backend\DailyTimeRecordsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupervisorController;
-use App\Http\Controllers\Backend\PropertyTypeController;
+use App\Http\Controllers\Backend\AssignedInternsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,11 +72,24 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::controller(DailyTimeRecordsController::class)->group(function () {
+    Route::controller(AssignedInternsController::class)->group(function () {
         Route::get(
-            '/DailyTimeRecords', //Route
-            'DailyTimeRecords' //Controller
-        )->name('dtr'); // href
+            '/interns', //Route
+            'Interns' //Controller
+        )->name('interns'); // href
+        Route::get(
+            '/assign/interns',
+            'AssignedInterns'
+        )->name('assigned.interns');
+        Route::post(
+            '/store/assign/interns',
+            'StoreAssignedInterns'
+        )->name('store.assigned.interns');
+        Route::get(
+            '/edit/assign/interns/{id}',
+            'EditAssignedInterns'
+        )->name('edit.assigned.interns');
+        Route::put('/update/assign/interns/{id}', 'UpdateAssignedInterns')->name('update.assigned.interns');
     });
 }); //admin middleware
 

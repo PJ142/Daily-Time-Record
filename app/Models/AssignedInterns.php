@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DailyTimeRecords extends Model
+class AssignedInterns extends Model
 {
     use HasFactory;
 
@@ -13,12 +13,7 @@ class DailyTimeRecords extends Model
         'intern_id',
         'supervisor_id',
         'internship_start_date',
-        'internship_end_date',
-        'date',
-        'time_in_am',
-        'time_out_am',
-        'time_in_pm',
-        'time_out_pm',
+        'internship_end_date'
     ];
 
     public function intern()
