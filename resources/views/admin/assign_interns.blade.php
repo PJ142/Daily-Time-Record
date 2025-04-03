@@ -2,9 +2,9 @@
 @section('admin')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <div class="page-content">
-        <div class="row profile-body">
+        <div class="row profile-body justify-content-center">
             <!-- middle wrapper start -->
-            <div class="col-md-8 col-xl-8 middle-wrapper">
+            <div class="col-md-8 col-xl-5 middle-wrapper">
                 <div class="row">
                     <div class="card-body">
 
@@ -49,4 +49,14 @@
             </div>
         </div>
     </div>
+
+    <style>
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(100%);
+        }
+
+        input[type="date"] {
+            color: #fff;
+        }
+    </style>
 @endsection

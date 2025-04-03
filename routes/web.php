@@ -89,7 +89,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
             '/edit/assign/interns/{id}',
             'EditAssignedInterns'
         )->name('edit.assigned.interns');
-        Route::put('/update/assign/interns/{id}', 'UpdateAssignedInterns')->name('update.assigned.interns');
+        Route::put(
+            '/update/assign/interns/{id}',
+            'UpdateAssignedInterns'
+        )->name('update.assigned.interns');
+        Route::get(
+            '/delete/assign/interns/{id}',
+            'DeleteAssignedInterns'
+        )->name('delete.assigned.interns');
     });
 }); //admin middleware
 

@@ -15,10 +15,17 @@ class AssignedInternsController extends Controller
     {
         $id = Auth::user()->id;
         $profile = User::find($id);
-        $intern = AssignedInterns::latest()->get();
 
-        return view('admin.admin_interns', compact('profile', 'intern'));
-    } //end
+        // Get all users who are supervisors
+        $supervisors = User::where('role', 'supervisor')
+            ->with(['assignedInterns' => function ($query) {
+                $query->with('intern'); // Load assigned interns
+            }])
+            ->get();
+
+        return view('admin.admin_interns', compact('profile', 'supervisors'));
+    }
+    //end
     public function AssignedInterns()
     {
         $id = Auth::user()->id;
@@ -54,7 +61,11 @@ class AssignedInternsController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect()->route('interns')->with('success', 'Intern assigned successfully.');
+        $notification = array(
+            'message' => 'Created Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('interns')->with($notification);
     } //end
     public function EditAssignedInterns($id)
     {
@@ -67,31 +78,50 @@ class AssignedInternsController extends Controller
     } //end
     public function UpdateAssignedInterns(Request $request, $id)
     {
-        // Retrieve the assignment record
-        $assignintern = AssignedInterns::findOrFail($id);
-
-        // Retrieve the associated intern and supervisor user records
-        $intern = User::find($assignintern->intern_id);
-        $supervisor = User::find($assignintern->supervisor_id);
-
-        // Update the intern's name if the intern record is found
-        if ($intern) {
-            $intern->name = $request->intern_name;
-            $intern->save();
-        }
-
-        // Update the supervisor's name if the supervisor record is found
-        if ($supervisor) {
-            $supervisor->name = $request->supervisor_name;
-            $supervisor->save();
-        }
-
-        // Update the assignment record (dates)
-        $assignintern->update([
-            'internship_start_date' => $request->internship_start_date,
-            'internship_end_date'   => $request->internship_end_date,
+        // Validate the request
+        $request->validate([
+            'intern_name' => 'required|string|max:255',
+            'supervisor_id' => 'required|exists:users,id',
+            'internship_start_date' => 'required|date',
+            'internship_end_date' => 'required|date',
         ]);
 
-        return redirect()->route('interns')->with('success', 'Intern assignment updated successfully.');
+        // Retrieve the assigned intern record
+        $assignintern = AssignedInterns::findOrFail($id);
+
+        // Retrieve the intern user record
+        $intern = User::find($assignintern->intern_id);
+
+        // Update the intern's name if they exist
+        if ($intern) {
+            $intern->update([
+                'name' => $request->intern_name,  // Update the intern's name
+            ]);
+        }
+
+        // Update the assigned intern record
+        $assignintern->update([
+            'supervisor_id' => $request->supervisor_id,  // Update the supervisor assignment
+            'internship_start_date' => $request->internship_start_date,
+            'internship_end_date' => $request->internship_end_date,
+        ]);
+
+        $notification = array(
+            'message' => 'Updated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('interns')->with($notification);
     } //end
+    public function DeleteAssignedInterns($id)
+    {
+
+        AssignedInterns::findOrFail($id)->delete();
+        $notification = array(
+            'message' => 'Deleted Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
 }

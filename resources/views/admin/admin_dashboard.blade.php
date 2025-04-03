@@ -102,6 +102,12 @@
         @endif
     </script>
 
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <!-- Your Custom JavaScript File -->
+    <script src="{{ asset('backend/assets/js/code.js') }}"></script>
+
     <!-- DataTables -->
     <script src="{{ asset('backend/assets/vendors/datatables.net/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('backend/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.js') }}"></script>
