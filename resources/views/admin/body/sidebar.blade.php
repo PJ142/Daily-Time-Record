@@ -29,7 +29,8 @@
                 </a>
                 <div class="collapse" id="adminMenu">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="#">Manage Users</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('manage.users') }}">Manage Users</a>
+                        </li>
                         <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
                     </ul>
                 </div>
@@ -62,7 +63,8 @@
                 </a>
                 <div class="collapse" id="internsMenu">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="#">Manage Details</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('dtr.intern') }}">Manage Details</a>
+                        </li>
                         <li class="nav-item"><a class="nav-link" href="#">Tasks</a></li>
                     </ul>
                 </div>

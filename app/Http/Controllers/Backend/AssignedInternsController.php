@@ -19,7 +19,7 @@ class AssignedInternsController extends Controller
         // Get all users who are supervisors
         $supervisors = User::where('role', 'supervisor')
             ->with(['assignedInterns' => function ($query) {
-                $query->with('intern'); // Load assigned interns
+                $query->with('intern');
             }])
             ->get();
 
@@ -49,7 +49,8 @@ class AssignedInternsController extends Controller
             'supervisor_id' => 'required',
             'intern_id' => 'required',
             'internship_start_date' => 'required',
-            'internship_end_date' => 'required'
+            'internship_end_date' => 'required',
+            'total_hours' => 'required'
         ]);
 
         DB::table('assigned_interns')->insert([
@@ -57,6 +58,7 @@ class AssignedInternsController extends Controller
             'intern_id' => $request->intern_id,
             'internship_start_date' => $request->internship_start_date,
             'internship_end_date' => $request->internship_end_date,
+            'total_hours' => $request->total_hours,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -65,6 +67,7 @@ class AssignedInternsController extends Controller
             'message' => 'Created Successfully',
             'alert-type' => 'success'
         );
+
         return redirect()->route('interns')->with($notification);
     } //end
     public function EditAssignedInterns($id)
@@ -84,6 +87,7 @@ class AssignedInternsController extends Controller
             'supervisor_id' => 'required|exists:users,id',
             'internship_start_date' => 'required|date',
             'internship_end_date' => 'required|date',
+            'total_hours' => 'required'
         ]);
 
         // Retrieve the assigned intern record
@@ -104,6 +108,7 @@ class AssignedInternsController extends Controller
             'supervisor_id' => $request->supervisor_id,  // Update the supervisor assignment
             'internship_start_date' => $request->internship_start_date,
             'internship_end_date' => $request->internship_end_date,
+            'total_hours' => $request->total_hours
         ]);
 
         $notification = array(

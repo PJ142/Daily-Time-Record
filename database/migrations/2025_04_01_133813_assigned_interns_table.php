@@ -15,21 +15,28 @@
                 $table->id();
                 $table->unsignedBigInteger('intern_id');
                 $table->unsignedBigInteger('supervisor_id');
+                $table->unsignedBigInteger('total_hours');
                 $table->date('internship_start_date')->nullable();
                 $table->date('internship_end_date')->nullable();
                 $table->timestamps();
 
-                // Foreign key constraints
-                $table->foreign('intern_id')->references('id')->on('users')->onDelete('cascade');
-                $table->foreign('supervisor_id')->references('id')->on('users')->onDelete('cascade');
+                $table->foreign('intern_id')
+                    ->references('id')
+                    ->on('users')
+                    ->onDelete('cascade');
+                $table->foreign('supervisor_id')
+                    ->references('id')
+                    ->on('users')
+                    ->onDelete('cascade');
             });
         }
+
 
         /**
          * Reverse the migrations.
          */
         public function down(): void
         {
-            Schema::dropIfExists('daily_time_records');
+            Schema::dropIfExists('assigned_interns');
         }
     };

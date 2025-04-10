@@ -52,6 +52,13 @@
                                     value="{{ $assignintern->internship_end_date }}" class="form-control" required>
                             </div>
 
+                            <!-- Total Hours -->
+                            <div class="mb-3">
+                                <label class="form-label">Total Hours</label>
+                                <input type="number" name="total_hours" class="form-control"
+                                    value="{{ $assignintern->total_hours }}" required min="0">
+                            </div>
+
                             <button type="submit" class="btn btn-primary me-2">Update</button>
                         </form>
 

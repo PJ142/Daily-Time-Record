@@ -1,23 +1,22 @@
 @extends('admin.admin_dashboard')
 @section('admin')
     <div class="page-content">
-        <nav class="page-breadcrumb">
+        <nav class="page-breadcrumb d-flex justify-content-center">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><span class="text-primary">Tables</span></li>
-                <li class="breadcrumb-item active" aria-current="page">Daily Time Records</li>
+                <li class="breadcrumb-item active" aria-current="page">Assign Interns</li>
             </ol>
         </nav>
-
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">DAILY TIME RECORDS</h4>
+                    <div class="card-body text-center">
+                        <h4 class="card-title text-center">Assign Interns</h4>
 
                         <!-- Add the Create button here -->
                         <a href="{{ route('assigned.interns') }}" class="btn btn-primary mb-3">Create New Record</a>
 
-                        <div class="accordion" id="supervisorAccordion">
+                        <div class="accordion " id="supervisorAccordion">
                             @foreach ($supervisors as $supervisor)
                                 <div class="accordion-item border shadow-sm mb-3">
                                     <h2 class="accordion-header" id="heading{{ $supervisor->id }}">

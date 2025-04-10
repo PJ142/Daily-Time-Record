@@ -1,8 +1,8 @@
 <footer
     class="footer d-flex flex-column flex-md-row align-items-center justify-content-between px-4 py-3 border-top small">
     <p class="text-muted mb-1 mb-md-0">
-        Copyright © 2022
-        <a href="https://www.nobleui.com" target="_blank">NobleUI</a>.
+        Copyright © 2025
+        <a href="http://patricportfolio.ct.ws/" target="_blank">Graemon</a>.
     </p>
     <p class="text-muted">
         Handcrafted With

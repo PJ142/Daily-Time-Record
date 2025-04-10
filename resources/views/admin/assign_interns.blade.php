@@ -42,6 +42,11 @@
                                 <input type="date" name="internship_end_date" class="form-control" required>
                             </div>
 
+                            <div class="mb-3">
+                                <label class="form-label">Total Hours</label>
+                                <input type="number" name="total_hours" class="form-control" required min="1">
+                            </div>
+
                             <button type="submit" class="btn btn-primary me-2">Create</button>
                         </form>
                     </div>
