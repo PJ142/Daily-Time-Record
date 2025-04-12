@@ -53,10 +53,10 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a href="" class="btn btn-sm btn-info">View</a>
-                                                    <a href="" class="btn btn-sm btn-success">Create</a>
-                                                    <a href="" class="btn btn-sm btn-warning">Edit</a>
-                                                    <a href="" class="btn btn-sm btn-danger delete-btn">Delete</a>
+                                                    <a href="{{ route('view.dtr.intern', ['id' => $assignedIntern->id]) }}"
+                                                        class="btn btn-sm btn-info">View</a>
+                                                    <a href="{{ route('create.dtr.intern', ['assigned_intern_id' => $assignedIntern->id]) }}"
+                                                        class="btn btn-sm btn-primary">Create</a>
                                                 </td>
                                             </tr>
                                         @endforeach

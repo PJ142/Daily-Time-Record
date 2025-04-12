@@ -72,6 +72,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Routes for DTRInternsController
     Route::controller(DTRInternsController::class)->group(function () {
         Route::get('/dtr/intern', 'DTRInterns')->name('dtr.intern');
+        Route::get('/create/dtr/intern/{assigned_intern_id}', 'CreateDTRInterns')->name('create.dtr.intern');
+        Route::post('/store/dtr/intern', 'StoreDTRInterns')->name('store.dtr.intern');
+        Route::get('/view/dtr/intern/{id}', 'ViewDTRInterns')->name('view.dtr.intern');
     });
 }); //admin middleware
 

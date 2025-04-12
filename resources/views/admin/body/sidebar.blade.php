@@ -19,64 +19,27 @@
 
             <li class="nav-item nav-category">Pages</li>
 
-            <!-- Admin Dropdown -->
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#adminMenu" role="button" aria-expanded="false"
-                    aria-controls="adminMenu">
+                <a href="{{ route('manage.users') }}" class="nav-link">
                     <i class="link-icon" data-feather="user"></i>
-                    <span class="link-title">Admin</span>
-                    <i class="menu-arrow"></i>
+                    <span class="link-title">Manage Users</span>
                 </a>
-                <div class="collapse" id="adminMenu">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="{{ route('manage.users') }}">Manage Users</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
-                    </ul>
-                </div>
             </li>
 
-            <!-- Supervisor Dropdown -->
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#supervisorMenu" role="button"
-                    aria-expanded="false" aria-controls="supervisorMenu">
+                <a href="{{ route('interns') }}" class="nav-link">
                     <i class="link-icon" data-feather="users"></i>
-                    <span class="link-title">Supervisor</span>
-                    <i class="menu-arrow"></i>
+                    <span class="link-title">Manage Interns</span>
                 </a>
-                <div class="collapse" id="supervisorMenu">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="{{ route('interns') }}">
-                                Manage Interns</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Reports</a></li>
-                    </ul>
-                </div>
             </li>
 
-            <!-- Interns Dropdown -->
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#internsMenu" role="button" aria-expanded="false"
-                    aria-controls="internsMenu">
+                <a href="{{ route('dtr.intern') }}" class="nav-link">
                     <i class="link-icon" data-feather="user-check"></i>
-                    <span class="link-title">Interns</span>
-                    <i class="menu-arrow"></i>
+                    <span class="link-title">Manage DTR</span>
                 </a>
-                <div class="collapse" id="internsMenu">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="{{ route('dtr.intern') }}">Manage Details</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="#">Tasks</a></li>
-                    </ul>
-                </div>
             </li>
 
-            <li class="nav-item nav-category">Docs</li>
-            <li class="nav-item">
-                <a href="https://www.nobleui.com/html/documentation/docs.html" target="_blank" class="nav-link">
-                    <i class="link-icon" data-feather="hash"></i>
-                    <span class="link-title">Documentation</span>
-                </a>
-            </li>
         </ul>
     </div>
 </nav>
